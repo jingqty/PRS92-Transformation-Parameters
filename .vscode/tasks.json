@@ -3,10 +3,9 @@
         {
             "type": "cppbuild",
             "label": "C/C++: gcc.exe build active file",
-            "command": "C:\\msys\\ucrt64\\bin\\gcc.exe",
+            "command": "C:\\msys\\ucrt64\\bin\\g++.exe",    //g++ for c++   gcc for c
             "args": [
                 "-fdiagnostics-color=always",
-                "-g",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"

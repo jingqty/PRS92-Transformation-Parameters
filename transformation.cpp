@@ -30,7 +30,7 @@ int main(){
     double deltaY  = 67.24478;  
     double deltaZ  = 47.04305;
 
-    //Rotation 
+    //Rotation (rad)
     double rotX = -0.00001487224144;
     double rotY =  0.00002376997845;
     double rotZ =  0.000007649875074;
@@ -137,7 +137,9 @@ do{
 
 }while(!repeat);
 
-        
+std::cout << "\nPress Enter To Exit";   //Prevent exe file to close instantly    
+std::cin.ignore();
+std::cin.get();
 
     return 0;
 }
