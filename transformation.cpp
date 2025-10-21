@@ -17,6 +17,7 @@
 //scale = 1.06002
 
 #include <iostream>
+#include <limits>
 #include <windows.h>
 
 int main(){
@@ -65,81 +66,83 @@ int main(){
 
     double coordinates[3][1] = {{x}, {y}, {z}};
 
-do{
-    std::cout << "Coordinate Transformation:" << std::endl;
-    std::cout << "(1) from WGS84 to PRS92" << std::endl;
-    std::cout << "(2) from PRS92 to WGS84" << std::endl;
-    std::cout << "Enter Choice:";
-    std::cin >> choice;
+while(true){
+    do{
+        std::cout << "Coordinate Transformation:" << std::endl;
+        std::cout << "(1) from WGS84 to PRS92" << std::endl;
+        std::cout << "(2) from PRS92 to WGS84" << std::endl;
+        std::cout << "Enter Choice:";
+        std::cin >> choice;
 
-    switch (choice) {
-    case 1:     //WGS84 to PRS92
-    system("cls");
+        switch (choice) {
+        case 1:     //WGS84 to PRS92
+        system("cls");
 
-            std:: cout << "Enter WGS84 coordinates" << std::endl;
-            std:: cout << "X-coordinate:";
-            std:: cin >> x;
-            std:: cout << "Y-coordinate:";
-            std:: cin >> y;
-            std:: cout << "Z-coordinate:";
-            std:: cin >> z;
+                std:: cout << "Enter WGS84 coordinates" << std::endl;
+                std:: cout << "X-coordinate:";
+                std:: cin >> x;
+                std:: cout << "Y-coordinate:";
+                std:: cin >> y;
+                std:: cout << "Z-coordinate:";
+                std:: cin >> z;
 
-        coordinates[0][0] = x; //redeclare
-        coordinates[1][0] = y;
-        coordinates[2][0] = z;
-
-    for (int i = 0; i < 3; i++){
-        for (int j = 0; j < 3; j++){
-                temp_results[i][0] += rotation[i][j] * coordinates[j][0];
-        }
-    }
-    
-    for (int i = 0; i < 3; i++){
-        std:: cout << std::fixed << translation[i][0] + scaleParameter * temp_results[i][0] << std::endl;
-    }
-    repeat = true;
-        break;
-
-
-    case 2: //PRS92 to WGS84
-
-    system("cls");
-
-            std:: cout << "Enter PRS92 coordinates" << std::endl;
-            std:: cout << "X-coordinate:";
-            std:: cin >> x;
-            std:: cout << "Y-coordinate:";
-            std:: cin >> y;
-            std:: cout << "Z-coordinate:";
-            std:: cin >> z;   
-
-            coordinates[0][0] = x;
+            coordinates[0][0] = x; //redeclare
             coordinates[1][0] = y;
             coordinates[2][0] = z;
-            
-    for (int i = 0; i < 3; i++){
-        for (int j = 0; j < 3; j++){
-                temp_results[i][0] += negativeRotation[i][j] * coordinates[j][0];
+
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                    temp_results[i][0] += rotation[i][j] * coordinates[j][0];
+            }
         }
-    }
-    
-    for (int i = 0; i < 3; i++){
-        std:: cout << std::fixed << -translation[i][0] + scaleParameter * temp_results[i][0] << std::endl;
-    }
-    repeat = true;
-        break;
+        
+        for (int i = 0; i < 3; i++){
+            std:: cout << std::fixed << translation[i][0] + scaleParameter * temp_results[i][0] << std::endl;
+        }
+        repeat = true;
+            break;
 
-    default:
-       system("cls");
-       std::cout << "Invalid Option" << std::endl;
-        break;
-    }
 
-}while(!repeat);
+        case 2: //PRS92 to WGS84
 
-std::cout << "\nPress Enter To Exit";   //Prevent exe file to close instantly    
-std::cin.ignore();
+        system("cls");
+
+                std:: cout << "Enter PRS92 coordinates" << std::endl;
+                std:: cout << "X-coordinate:";
+                std:: cin >> x;
+                std:: cout << "Y-coordinate:";
+                std:: cin >> y;
+                std:: cout << "Z-coordinate:";
+                std:: cin >> z;   
+
+                coordinates[0][0] = x;
+                coordinates[1][0] = y;
+                coordinates[2][0] = z;
+                
+        for (int i = 0; i < 3; i++){
+            for (int j = 0; j < 3; j++){
+                    temp_results[i][0] += negativeRotation[i][j] * coordinates[j][0];
+            }
+        }
+        
+        for (int i = 0; i < 3; i++){
+            std:: cout << std::fixed << -translation[i][0] + scaleParameter * temp_results[i][0] << std::endl;
+        }
+        repeat = true;
+            break;
+
+        default:
+        system("cls");
+        std::cout << "Invalid Option" << std::endl;
+            break;
+        }
+
+    }while(!repeat);
+
+std::cout << "\nPress Enter To Return";   //Prevent exe file to close instantly    
+std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 std::cin.get();
-
+system("cls");
+};
     return 0;
 }
